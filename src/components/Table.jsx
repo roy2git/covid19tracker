@@ -30,7 +30,7 @@ export default class Table extends Component {
     // console.log(dateUTC);
 
     var dateIST = new Date(dateUTC);
-    // console.log(dateIST);
+    //console.log(dateIST);
 
     let searchBar = (
       <nav className="navbar bg-light">

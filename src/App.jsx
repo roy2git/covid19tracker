@@ -28,7 +28,7 @@ class App extends Component {
     this.setState({
       countryList: response.data.Countries,
       total: response.data.Global,
-      lastUpdatedresponseDate: response.data.Date,
+      lastUpdatedDate: response.data.Date,
     });
     // this.setState({ total: response.data.Global });
     // this.setState({ lastUpdatedDate: response.data.Date });
