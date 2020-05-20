@@ -60,7 +60,7 @@ export default class Table extends Component {
       <div>
         {searchBar}
 
-        <table className="table table-hover">
+        <table className="table table-hover table-responsive">
           <thead>
             <tr>
               <th className="table-light">Country</th>
