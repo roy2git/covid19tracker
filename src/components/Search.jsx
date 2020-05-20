@@ -1,22 +1,32 @@
 import React from "react";
 
-export default function Search() {
-  return (
-    <nav class="navbar navbar-light bg-light">
-      <a class="navbar-brand" href="dfdf">
-        Navbar
-      </a>
-      <form class="form-inline">
-        <input
-          class="form-control mr-sm-2"
-          type="search"
-          placeholder="Search Country"
-          aria-label="Search"
-        />
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-          Search
-        </button>
-      </form>
-    </nav>
-  );
+class Search extends React.Component {
+  handleSearch = (e) => {
+    let searchText = e.target.value;
+    console.log(searchText);
+
+    let allCountries = this.props.data.countryList;
+    let filteredList = allCountries.filter(
+      (country) => country.Country == searchText
+    );
+    this.setState({ personList: filteredList });
+  };
+
+  render() {
+    return (
+      <nav className="navbar navbar-light bg-light">
+        <p>Data Last Updated On</p>
+        <form className="form-inline">
+          <input
+            onChange={(e) => this.handleSearch(e)}
+            className="form-control mr-sm-2"
+            type="search"
+            placeholder="Search Country"
+            aria-label="Search"
+          />
+        </form>
+      </nav>
+    );
+  }
 }
+export default Search;

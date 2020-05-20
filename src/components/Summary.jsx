@@ -1,36 +1,67 @@
 import React from "react";
-import { Card } from "bootstrap/dist/css/bootstrap.min.css";
 
 export default function Summary(props) {
-  console.log("propssssssssssssssssssss========" + props);
+  console.log(props.data);
+
+  //required to avoid undefined in the first rendering of this component
+  if (!props.data) {
+    return null;
+  }
+
   return (
     <div>
-      <span className="badge badge-primary badge-pill">14</span>
       <div className="card-deck">
         <div className="card border-dark mb-3" style={{ maxWidth: "33rem" }}>
-          <div className="card-header">TotalConfirmed</div>
+          <div className="card-header">New Confirmed</div>
           <div className="card-body text-dark">
-            <p className="card-text">{this.props.total.TotalConfirmed}</p>
+            <span className=" badge-primary badge-pill">
+              {props.data.NewConfirmed}
+            </span>
           </div>
         </div>
 
         <div className="card border-dark mb-3" style={{ maxWidth: "33rem" }}>
-          <div className="card-header">TotalDeaths</div>
+          <div className="card-header">Total Confirmed</div>
           <div className="card-body text-dark">
-            <h5 className="card-title">Dark card title</h5>
-            <p className="card-text">
-              3325353
-            </p>
+            <span className=" badge-primary badge-pill">
+              {props.data.TotalConfirmed}
+            </span>
           </div>
         </div>
 
         <div className="card border-dark mb-3" style={{ maxWidth: "33rem" }}>
-          <div className="card-header">TotalRecovered</div>
+          <div className="card-header">New Deaths</div>
           <div className="card-body text-dark">
-            <h5 className="card-title">Dark card title</h5>
-            <p className="card-text">
-             354536
-            </p>
+            <span className=" badge-danger badge-pill">
+              {props.data.NewDeaths}
+            </span>
+          </div>
+        </div>
+
+        <div className="card border-dark mb-3" style={{ maxWidth: "33rem" }}>
+          <div className="card-header">Total Deaths</div>
+          <div className="card-body text-dark">
+            <span className=" badge-danger badge-pill">
+              {props.data.TotalDeaths}
+            </span>
+          </div>
+        </div>
+
+        <div className="card border-dark mb-3" style={{ maxWidth: "33rem" }}>
+          <div className="card-header">NewRecovered</div>
+          <div className="card-body text-dark">
+            <span className=" badge-success badge-pill">
+              {props.data.NewRecovered}
+            </span>
+          </div>
+        </div>
+
+        <div className="card border-dark mb-3" style={{ maxWidth: "33rem" }}>
+          <div className="card-header">Total Recovered</div>
+          <div className="card-body text-dark">
+            <span className=" badge-success badge-pill">
+              {props.data.TotalRecovered}
+            </span>
           </div>
         </div>
       </div>

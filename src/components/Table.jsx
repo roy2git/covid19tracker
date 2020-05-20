@@ -1,52 +1,95 @@
 import React, { Component } from "react";
 
 export default class Table extends Component {
-  handleDelete(person) {
-    let filteredList = this.state.personList.filter((p) => p.id !== person.id);
-    this.setState({ personList: filteredList });
+  constructor(props) {
+    super(props);
+    this.state = {
+      searchText: "",
+      isLoading: true,
+    };
   }
 
+  componentDidMount() {
+    this.setState({ isLoading: false });
+  }
+
+  handleSearch = (e) => {
+    let searchText = e.target.value;
+    console.log(searchText);
+    this.setState({ searchText });
+  };
+
   render() {
-    console.log(this.state.personList);
-    this.state.personList.map((p) => console.log(p));
-    let msg = (
-      <span style={{ marginLeft: "30%" }}>
-        Total No of persons {this.state.personList.length}
-      </span>
-    );
-    if (this.state.personList.length === 0) {
-      return msg;
+    if (!this.props.data) {
+      return <div>****** loading ********</div>;
     }
 
-    let persontable = (
+    console.log(this.props);
+
+    let dateUTC = this.props.data.lastUpdatedDate;
+    // console.log(dateUTC);
+
+    var dateIST = new Date(dateUTC);
+    // console.log(dateIST);
+
+    let searchBar = (
+      <nav className="navbar bg-light">
+        <span style={{ color: "green" }}>
+          * Last Updated On {dateIST.toString()}
+        </span>
+
+        <form>
+          <input
+            onChange={(e) => this.handleSearch(e)}
+            className="form-control"
+            type="search"
+            placeholder="Search By Country"
+            aria-label="Search"
+          />
+        </form>
+      </nav>
+    );
+
+    let filteredList = this.props.data.countryList.filter(
+      (c) =>
+        c.Country.toLowerCase().indexOf(this.state.searchText.toLowerCase()) !==
+        -1
+    );
+
+    let countrytable = (
       <div>
-        {msg}
-        <table className="personTable">
+        {searchBar}
+
+        <table className="table table-hover">
           <thead>
             <tr>
-              <td>First Name</td>
-              <td>Last Name</td>
-              <td>Country</td>
-              <td>Delete</td>
+              <th className="table-light">Country</th>
+              <th className="table-primary">New Confirmed</th>
+              <th className="table-primary">Total Confirmed</th>
+              <th className="table-danger">New Deaths</th>
+              <th className="table-danger">Total Deaths</th>
+              <th className="table-success">New Recovered</th>
+              <th className="table-success">Total Recovered</th>
             </tr>
           </thead>
-          {this.state.personList.map((person) => (
-            <tr>
-              <td>{person.first_name}</td>
-              <td>{person.last_name}</td>
-              <td>{person.country}</td>
-              <td>
-                <button onClick={() => this.handleDelete(person)}>
-                  Delete
-                </button>
-              </td>
-            </tr>
-          ))}
+
+          <tbody>
+            {filteredList.map((country) => (
+              <tr key={country.CountryCode}>
+                <th>{country.Country}</th>
+                <td>{country.NewConfirmed}</td>
+                <td>{country.TotalConfirmed}</td>
+                <td>{country.NewDeaths}</td>
+                <td>{country.TotalDeaths}</td>
+                <td>{country.NewRecovered}</td>
+                <td>{country.TotalRecovered}</td>
+              </tr>
+            ))}
+          </tbody>
         </table>
-       
       </div>
     );
 
-    return persontable;
+    return countrytable;
   }
 }

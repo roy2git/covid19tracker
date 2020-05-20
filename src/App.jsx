@@ -1,4 +1,3 @@
-import ReactDOM from "react-dom";
 import React, { Component } from "react";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -9,34 +8,42 @@ import Table from "./components/Table";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
-
+let count = 1;
 class App extends Component {
-  // constructor() {
-  //   super();
-  // }
   state = { total: {}, countryList: [], lastUpdatedDate: null };
 
-  componentDidMount() {
-    let promise = axios.get("http://api.covid19api.com/summary");
-    promise
-      .then((response) => {
-        console.log("promisepromisepromisepromise===>" + response.data);
-        this.setState({ countryList: response.data.Countries });
-        this.setState({ total: response.data.Global });
-        this.setState({ lastUpdatedDate: response.data.Date });
-      })
-      .catch((error) => console.log("error------------->" + error));
+  async componentDidMount() {
+    console.log("count is ----------->" + count++);
+    // let promise = axios.get("https://api.covid19api.com/summary");
+    // promise
+    //   .then((response) => {
+    //     console.log("promisepromisepromisepromise===>" + response.Global);
+    //     this.setState({ countryList: response.Countries });
+    //     this.setState({ total: response.Global });
+    //     this.setState({ lastUpdatedDate: response.Date });
+    //   })
+    //   .catch((error) => console.log("error------------->" + error));
+
+    let response = await axios.get("https://api.covid19api.com/summary");
+    this.setState({
+      countryList: response.data.Countries,
+      total: response.data.Global,
+      lastUpdatedresponseDate: response.data.Date,
+    });
+    // this.setState({ total: response.data.Global });
+    // this.setState({ lastUpdatedDate: response.data.Date });
+    console.log(response.data.Countries);
   }
 
   render() {
     return (
       <div>
-        <Header data={this.state}></Header>
-        <Summary data={this.state}></Summary>
-
-        <Search></Search>
-        {/* <Table></Table> */}
+        <Header />
+        <Summary data={this.state.total}></Summary>
+        <Table data={this.state}></Table>
+        <hr />
         <Youtube></Youtube>
+        <hr />
         <Footer></Footer>
       </div>
     );
