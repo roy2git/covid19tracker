@@ -19,6 +19,7 @@ export default class Table extends Component {
     this.setState({ searchText });
   };
 
+  handleSort = () => {};
   render() {
     if (!this.props.data) {
       return <div>****** loading ********</div>;
@@ -60,7 +61,7 @@ export default class Table extends Component {
       <div>
         {searchBar}
 
-        <table className="table table-hover table-responsive">
+        <table className="table table-hover ">
           <thead>
             <tr>
               <th className="table-light">Country</th>

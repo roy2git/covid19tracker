@@ -12,27 +12,18 @@ let count = 1;
 class App extends Component {
   state = { total: {}, countryList: [], lastUpdatedDate: null };
 
-  async componentDidMount() {
+  componentDidMount() {
     console.log("count is ----------->" + count++);
-    // let promise = axios.get("https://api.covid19api.com/summary");
-    // promise
-    //   .then((response) => {
-    //     console.log("promisepromisepromisepromise===>" + response.Global);
-    //     this.setState({ countryList: response.Countries });
-    //     this.setState({ total: response.Global });
-    //     this.setState({ lastUpdatedDate: response.Date });
-    //   })
-    //   .catch((error) => console.log("error------------->" + error));
-
-    let response = await axios.get("https://api.covid19api.com/summary");
-    this.setState({
-      countryList: response.data.Countries,
-      total: response.data.Global,
-      lastUpdatedDate: response.data.Date,
-    });
-    // this.setState({ total: response.data.Global });
-    // this.setState({ lastUpdatedDate: response.data.Date });
-    console.log(response.data.Countries);
+    let promise = axios.get("https://api.covid19api.com/summary");
+    promise
+      .then((response) => {
+        this.setState({
+          countryList: response.data.Countries,
+          total: response.data.Global,
+          lastUpdatedDate: response.data.Date,
+        });
+      })
+      .catch((error) => console.log("error------------->" + error));
   }
 
   render() {
