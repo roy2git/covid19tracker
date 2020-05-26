@@ -12,7 +12,7 @@ To run this project in Local, Clone the repo,then in the project directory, you 
 Runs the app in the development mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-Screen shots
+Screenshots
 ---
 ![covid-image1](https://user-images.githubusercontent.com/64326150/82867520-a56bf980-9f48-11ea-858c-1e56f9f4c03a.png)
 
